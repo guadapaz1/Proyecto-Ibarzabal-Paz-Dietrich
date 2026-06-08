@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {View, Text, TextInput, Pressable, StyleSheet} from 'react-native';
 import { auth, db} from '../../firebase/config';
 
@@ -21,7 +21,7 @@ function Register(props) {
             username: username,
             createdAt: Date.now()
         })
-
+            //sign out aca
             setRegister(true);
             props.navigation.navigate("Login");
          })
@@ -41,8 +41,9 @@ function Register(props) {
                     }
                 }
             )
-        }
+        },  []
     )
+  
 
 
     return (

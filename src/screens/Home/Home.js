@@ -1,65 +1,61 @@
-import { View, Text, StyleSheet,FlatList } from 'react-native';
-import DynamicForm from '../../components/DynamicForm/DynamicForm';
+import { View, Text, StyleSheet, FlatList } from 'react-native';
+//import DynamicForm from '../../components/DynamicForm/DynamicForm';
+import Post from '../../components/Post/Post';
+import { db } from '../../firebase/config';
 import { useState, useEffect } from 'react';
-import { db, auth} from '../../firebase/config';
 
 function Home() {
+     const [posts, setPosts] = useState([]);
+     
+    useEffect(() => {
+  db.collection('posts')
+    .orderBy('createdAt', 'desc')
+    .onSnapshot(docs => {
+      let posts = [];
 
-    const [posts, setPosts] = useState([]);
+      docs.forEach(doc => {
+        posts.push({
+          id: doc.id,
+          data: doc.data()
+        });
+      });
 
-    useEffect(()=> {
-        db.collection('posts').onSnapshot(
-            docs => {
-                let postsList = [];
-                docs.forEach(doc => {
-                    postsList.push({
-                        id: doc.id,
-                        data: doc.data()
-                    });
-                });
-            setPosts(postsList);
-            }
-        );
-    })
+      setPosts(posts);
+    });
+}, []);
 
     return (
-
         <View style={styles.container}>
+            <Text style={styles.titulo}>Home</Text>
 
-            <Text style={styles.text}>
-                Pantalla Home
-            </Text>
-
-            <DynamicForm/>
-
-            <Text style={styles.text}> Posts</Text>
-
-                <FlatList 
-                data={posts} 
-                keyExtractor={(item) => item.id}
-                renderItem={({ item }) => (
-                    <Text>{item.data.descripcionPost}</Text>
-                )}/>
-
+        
+         <FlatList
+        data={posts}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <Post data={item.data} id={item.id} />
+        )}
+      />
+           
         </View>
-
+        
     )
 }
 
-export default Home;
-
 const styles = StyleSheet.create({
-
     container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
+        padding: 25,
+        backgroundColor: '#eeeeee'
     },
-
-    text: {
-        fontSize: 30,
-        marginTop: 20,
-        marginBottom:10
+    titulo: {
+        fontSize: 35,
+        fontWeight: 'bold',
+        marginBottom: 20
+    },
+    texto: {
+        fontSize: 18
     }
+});
 
-})
+export default Home

@@ -1,87 +1,77 @@
-import { useState } from 'react';
-import { View, TextInput, Pressable, Text, StyleSheet } from 'react-native';
-import { db, auth } from '../../firebase/config';
+import React, { useState } from 'react';
+import { View, Text, TextInput, Pressable, StyleSheet } from 'react-native';
+import { auth, db } from '../../firebase/config';
 
 function NuevoPost() {
+  const [descripcionPost, setDescripcionPost] = useState('');
+  const [error, setError] = useState('');
 
-    const [descripcionPost, setDescripcionPost] = useState("");
+  function onSubmit() {
+    db.collection('posts').add({
+      descripcionPost: descripcionPost,
+      email: auth.currentUser.email,
+      createdAt: Date.now(),
+      likes: []
+    })
+    .then(() => {
+      setDescripcionPost('');
+      setError('Post creado correctamente');
+    })
+    .catch((error) => {
+      setError('Error al crear el post');
+    });
+  }
 
-    function post() {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.titulo}>Nuevo post</Text>
 
-        db.collection('posts').add({
-            owner: auth.currentUser.email,
-            descripcionPost: descripcionPost,
-            createdAt: Date.now()
-        })
-        .then(() => {
-            setDescripcionPost("");
-        })
-        .catch(error => console.log(error))
+      <TextInput
+        style={styles.input}
+        placeholder="Escribí tu post"
+        value={descripcionPost}
+        onChangeText={(text) => setDescripcionPost(text)}
+      />
 
-    }
+      <Pressable style={styles.button} onPress={onSubmit}>
+        <Text style={styles.buttonText}>Publicar</Text>
+      </Pressable>
 
-    return(
-
-        <View style={styles.container}>
-
-            <Text style={styles.title}>Publica un Post</Text>
-
-            <TextInput style={styles.input}
-                placeholder='Escribi un post'
-                value={descripcionPost}
-                onChangeText={(text) => setDescripcionPost(text)}
-            />
-
-            <Pressable onPress={post} style={styles.button}>
-                <Text style={styles.buttonText}>Publicar</Text>
-            </Pressable>
-
-        </View>
-
-    )
-
+      <Text>{error}</Text>
+    </View>
+  );
 }
 
-export default NuevoPost;
-
-
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 25,
+    backgroundColor: '#eeeeee'
+  },
+  titulo: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    marginBottom: 20
+  },
+  input: {
+    backgroundColor: 'white',
+    padding: 12,
+    borderRadius: 5,
+    marginBottom: 15,
+    borderWidth: 1,
+    borderColor: '#ccc'
+  },
+  button: {
+    backgroundColor: '#333',
+    padding: 15,
+    borderRadius: 5,
+    marginBottom: 20
+  },
+  buttonText: {
+    color: 'white',
+    textAlign: 'center',
+    fontSize: 17
+  }
+});
 
-    container: {
-        paddingHorizontal: 10,
-        marginTop: 20
-    },
-
-    title: {
-        fontSize: 30,
-        marginBottom: 20
-    },
-
-    input: {
-        height: 20,
-        paddingVertical: 15,
-        paddingHorizontal: 10,
-        borderWidth: 1,
-        borderColor: '#ccc',
-        borderStyle: 'solid',
-        borderRadius: 6,
-        marginVertical: 10
-    },
-
-    button: {
-        backgroundColor: '#28a745',
-        paddingHorizontal: 10,
-        paddingVertical: 6,
-        borderRadius: 4,
-        borderWidth: 1,
-        borderStyle: 'solid',
-        borderColor: '#28a745',
-        marginTop: 10
-    },
-
-    buttonText: {
-        color: '#fff',
-        textAlign: 'center'
-    }
-
-})
+export default NuevoPost;

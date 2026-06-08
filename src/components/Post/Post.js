@@ -1,0 +1,87 @@
+import React from 'react';
+import { View, Text, StyleSheet, Pressable } from 'react-native';
+import { db, auth } from '../../firebase/config';
+import firebase from 'firebase';
+
+function Post(props) {
+  //useeffect - para que no se borre cuando recarga
+ 
+  const usuarioActual = auth.currentUser.email
+
+  const likes = props.data.likes ? props.data.likes : [];
+
+  const yaLikeo = likes.includes(usuarioActual);
+
+  const likearPost = () => {
+    db.collection('posts')
+      .doc(props.id)
+      .update({
+        likes: firebase.firestore.FieldValue.arrayUnion(usuarioActual)
+      });
+  };
+
+  const quitarLike = () => {
+    db.collection('posts')
+      .doc(props.id)
+      .update({
+        likes: firebase.firestore.FieldValue.arrayRemove(usuarioActual)
+      });
+  };
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.email}>{props.data.email}</Text>
+
+      <Text style={styles.descripcion}>
+        {props.data.descripcionPost}
+      </Text>
+
+      <Text style={styles.likes}>
+        Likes: {likes.length}
+      </Text>
+
+      {
+        yaLikeo ?
+          <Pressable style={styles.button} onPress={quitarLike}>
+            <Text style={styles.buttonText}>Quitar like</Text>
+          </Pressable>
+        :
+          <Pressable style={styles.button} onPress={likearPost}>
+            <Text style={styles.buttonText}>Like</Text>
+          </Pressable>
+      }
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: 'white',
+    padding: 15,
+    marginBottom: 15,
+    borderRadius: 6
+  },
+  email: {
+    fontWeight: 'bold',
+    marginBottom: 8
+  },
+  descripcion: {
+    fontSize: 16,
+    marginBottom: 10
+  },
+  likes: {
+    marginBottom: 10
+  },
+  button: {
+    backgroundColor: '#222',
+    padding: 10,
+    borderRadius: 5,
+    alignItems: 'center'
+  },
+  buttonText: {
+    color: 'white',
+    fontWeight: 'bold'
+  }
+});
+
+export default Post;
