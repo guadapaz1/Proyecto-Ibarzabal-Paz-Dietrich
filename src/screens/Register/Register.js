@@ -1,78 +1,138 @@
 import { useState } from 'react';
-import { View, Text, TextInput, Pressable, StyleSheet } from 'react-native';
+import {View, Text, TextInput, Pressable, StyleSheet} from 'react-native';
+import { auth, db} from '../../firebase/config';
+
 
 function Register(props) {
+
     const [email, setEmail] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [register, setRegister] = useState('');
+    const [registererror, setRegisterError] = useState('');
 
-    function onSubmit() {
-        console.log('Email:', email);
-        console.log('Username:', username);
-        console.log('Password:', password);
+    
+    function registerOnSubmit(email, pass, username){
+        auth.createUserWithEmailAndPassword(email, pass)
+        .then((response) => {
+
+            db.collection('users').add({
+            email: email,
+            username: username,
+            createdAt: Date.now()
+        })
+
+            setRegister(true);
+            props.navigation.navigate("Login");
+         })
+        .catch(error =>{
+            console.log(error)
+            setRegisterError("Fallo en el registro.")
+        })
     }
 
-    return (
-        <View style={styles.container}>
-            <Text style={styles.title}>Registro</Text>
 
-            <TextInput
-                style={styles.input}
-                placeholder="Email"
-                keyboardType="email-address"
-                onChangeText={text => setEmail(text)}
+    useEffect(
+        ()=> {
+            auth.onAuthStateChanged(
+                user => {
+                    if (user) {
+                        props.navigation.navigate("HomeMenu")
+                    }
+                }
+            )
+        }
+    )
+
+
+    return (
+
+        <View style={styles.container}>
+
+            <Text style={styles.title}>
+                Register
+            </Text>
+
+            <TextInput style={styles.input}
+                keyboardType='email-address'
+                placeholder='email'
+                onChangeText={(text) => setEmail(text)}
                 value={email}
             />
 
-            <TextInput
-                style={styles.input}
-                placeholder="Nombre de usuario"
-                keyboardType="default"
-                onChangeText={text => setUsername(text)}
+            <TextInput style={styles.input}
+                keyboardType='default'
+                placeholder='username'
+                onChangeText={(text) => setUsername(text)}
                 value={username}
             />
 
-            <TextInput
-                style={styles.input}
-                placeholder="Password"
-                keyboardType="default"
+            <TextInput style={styles.input}
+                keyboardType='default'
+                placeholder='password'
                 secureTextEntry={true}
-                onChangeText={text => setPassword(text)}
+                onChangeText={(text) => setPassword(text)}
                 value={password}
             />
 
-            <Pressable style={styles.boton} onPress={() => onSubmit()}>
-                <Text>Registrarme</Text>
+            <Pressable style={styles.button} onPress={() => registerOnSubmit(email, password,username)}>
+                <Text style={styles.buttonText}> Registrate </Text>
             </Pressable>
 
-            <Pressable onPress={() => props.navigation.navigate('Login')}>
-                <Text>¿Ya tenés cuenta? Iniciá sesión</Text>
+            <Pressable style={styles.button} onPress={() => props.navigation.navigate("Login")}>
+                <Text style={styles.buttonText}> Ir al Login </Text>
             </Pressable>
+
+            <View>
+
+                <Text>{registererror}</Text>
+
+            </View>
+
         </View>
-    );
+
+    )
 }
 
-export default Register;
+export default Register
 
 const styles = StyleSheet.create({
+
     container: {
-        padding: 20,
+        paddingHorizontal: 10,
+        marginTop: 20
     },
+
     title: {
-        fontSize: 24,
-        marginBottom: 20,
+        fontSize: 30,
+        marginBottom: 20
     },
+
     input: {
+        height: 20,
+        paddingVertical: 15,
+        paddingHorizontal: 10,
         borderWidth: 1,
-        borderColor: '#999',
-        padding: 10,
-        marginBottom: 10,
+        borderColor: '#ccc',
+        borderStyle: 'solid',
+        borderRadius: 6,
+        marginVertical: 10
     },
-    boton: {
+
+    button: {
+        backgroundColor: '#28a745',
+        paddingHorizontal: 10,
+        paddingVertical: 6,
+        borderRadius: 4,
         borderWidth: 1,
-        borderColor: '#000',
-        padding: 10,
-        marginBottom: 10,
-        alignItems: 'center',
+        borderStyle: 'solid',
+        borderColor: '#28a745',
+        marginTop: 10
     },
-});
+
+    buttonText: {
+        color: '#fff',
+        textAlign: 'center'
+    }
+
+})
