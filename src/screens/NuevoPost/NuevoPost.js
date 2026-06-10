@@ -7,6 +7,12 @@ function NuevoPost() {
   const [error, setError] = useState('');
 
   function onSubmit() {
+
+    if (descripcionPost === '') {
+      setError('El post no puede estar vacío');
+      return;
+    }
+
     db.collection('posts').add({
       descripcionPost: descripcionPost,
       email: auth.currentUser.email,
@@ -44,15 +50,16 @@ function NuevoPost() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    padding: 25,
-    backgroundColor: '#eeeeee'
-  },
-  titulo: {
-    fontSize: 30,
-    fontWeight: 'bold',
-    marginBottom: 20
-  },
+        flex: 1,
+        padding: 25,
+        backgroundColor: '#F5F7FA'
+    },
+    titulo: {
+        fontSize: 30,
+        fontWeight: 'bold',
+        marginBottom: 20,
+        color: '#4F46E5'
+      },
   input: {
     backgroundColor: 'white',
     padding: 12,
@@ -62,15 +69,22 @@ const styles = StyleSheet.create({
     borderColor: '#ccc'
   },
   button: {
-    backgroundColor: '#333',
+    backgroundColor: '#4F46E5',
     padding: 15,
-    borderRadius: 5,
+    borderRadius: 8,
     marginBottom: 20
   },
-  buttonText: {
+  titulo: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    color: '#4F46E5',
+    marginBottom: 20
+},
+buttonText: {
     color: 'white',
     textAlign: 'center',
-    fontSize: 17
+    fontSize: 17,
+    fontWeight: 'bold'
   }
 });
 

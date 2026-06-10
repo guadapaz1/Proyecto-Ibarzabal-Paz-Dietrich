@@ -59,8 +59,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     padding: 15,
     marginBottom: 15,
-    borderRadius: 6
-  },
+    borderRadius: 8
+    },
   email: {
     fontWeight: 'bold',
     marginBottom: 8
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     marginBottom: 10
   },
   button: {
-    backgroundColor: '#222',
+    backgroundColor: '#4F46E5',
     padding: 10,
     borderRadius: 5,
     alignItems: 'center'

@@ -46,12 +46,12 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 25,
-        backgroundColor: '#eeeeee'
-    },
+        backgroundColor: '#F5F7FA'    },
     titulo: {
         fontSize: 35,
         fontWeight: 'bold',
-        marginBottom: 20
+        marginBottom: 20,
+        color: '#4F46E5'
     },
     texto: {
         fontSize: 18

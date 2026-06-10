@@ -59,9 +59,9 @@ function Login(props) {
                 <Text style={styles.buttonText}> Login </Text>
             </Pressable>
 
-            <Pressable style={styles.button} onPress={() => props.navigation.navigate("Register")}>
-                <Text style={styles.buttonText}> Ir al Registro </Text>
-            </Pressable>
+            <Pressable onPress={() => props.navigation.navigate("Register")}>
+    <Text style={styles.link}>¿No tenés cuenta? Registrate</Text>
+</Pressable>
 
             <View>
 
@@ -79,40 +79,46 @@ export default Login
 const styles = StyleSheet.create({
 
     container: {
-        paddingHorizontal: 10,
-        marginTop: 20
+        flex: 1,
+        paddingHorizontal: 25,
+        paddingTop: 40,
+        backgroundColor: '#F5F7FA'
     },
 
     title: {
-        fontSize: 30,
-        marginBottom: 20
+        fontSize: 32,
+        fontWeight: 'bold',
+        marginBottom: 25,
+        color: '#4F46E5'
     },
 
     input: {
-        height: 20,
+        backgroundColor: 'white',
         paddingVertical: 15,
         paddingHorizontal: 10,
         borderWidth: 1,
-        borderColor: '#ccc',
-        borderStyle: 'solid',
-        borderRadius: 6,
+        borderColor: '#D1D5DB',
+        borderRadius: 8,
         marginVertical: 10
     },
-
     button: {
-        backgroundColor: '#28a745',
+        backgroundColor: '#4F46E5',
         paddingHorizontal: 10,
-        paddingVertical: 6,
-        borderRadius: 4,
-        borderWidth: 1,
-        borderStyle: 'solid',
-        borderColor: '#28a745',
+        paddingVertical: 12,
+        borderRadius: 8,
         marginTop: 10
     },
 
     buttonText: {
         color: '#fff',
         textAlign: 'center'
-    }
+    },
+    
+    link: {
+        color: '#4F46E5',
+        textAlign: 'center',
+        marginTop: 15,
+        fontWeight: 'bold'
+    },
 
 })
