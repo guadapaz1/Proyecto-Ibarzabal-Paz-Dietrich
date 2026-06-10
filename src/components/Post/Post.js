@@ -47,7 +47,7 @@ function Post(props) {
       </Text>
 
       <Text style={styles.likes}>
-        Likes: {likes.length}
+        <Text style={styles.negrita}>Likes: </Text>{likes.length}
       </Text>
 
       {
@@ -105,6 +105,9 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     alignItems: 'center',
     marginTop: 10
+},
+negrita: {
+  fontWeight: "bold"
 }
 });
 
