@@ -1,17 +1,27 @@
 import React from 'react';
+import { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Pressable } from 'react-native';
 import { db, auth } from '../../firebase/config';
 import firebase from 'firebase';
 
+
 function Post(props) {
-  //useeffect - para que no se borre cuando recarga
  
   const usuarioActual = auth.currentUser.email
 
   const likes = props.data.likes ? props.data.likes : [];
 
-  const yaLikeo = likes.includes(usuarioActual);
+  const [yaLikeo,setYaLikeo] = useState(false);
 
+  useEffect(() => {
+    if (likes.includes(usuarioActual)) {
+      setYaLikeo(true)}
+      else{
+        setYaLikeo(false)
+      }
+    }, [props.data.likes])
+  
+  
   const likearPost = () => {
     db.collection('posts')
       .doc(props.id)
