@@ -50,6 +50,13 @@ function Post(props) {
             <Text style={styles.buttonText}>Like</Text>
           </Pressable>
       }
+
+      <Pressable
+    style={styles.commentButton}
+    onPress={() => props.navigation.navigate('Comentarios', { id: props.id })}>
+    <Text style={styles.buttonText}>Comentar</Text>
+    </Pressable>
+
     </View>
   );
 }
@@ -80,8 +87,15 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: 'white',
-    fontWeight: 'bold'
-  }
+    fontWeight: 'bold',
+  }, 
+  commentButton: {
+    backgroundColor: '#4F46E5',
+    padding: 10,
+    borderRadius: 8,
+    alignItems: 'center',
+    marginTop: 10
+}
 });
 
 export default Post;

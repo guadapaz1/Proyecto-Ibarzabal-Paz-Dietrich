@@ -4,7 +4,7 @@ import Post from '../../components/Post/Post';
 import { db } from '../../firebase/config';
 import { useState, useEffect } from 'react';
 
-function Home() {
+function Home(props) {
      const [posts, setPosts] = useState([]);
      
     useEffect(() => {
@@ -27,16 +27,14 @@ function Home() {
     return (
         <View style={styles.container}>
             <Text style={styles.titulo}>Home</Text>
-
         
          <FlatList
         data={posts}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <Post data={item.data} id={item.id} />
+            <Post data={item.data} id={item.id} navigation={props.navigation} />
         )}
       />
-           
         </View>
         
     )
