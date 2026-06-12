@@ -61,11 +61,9 @@ function Post(props) {
           </Pressable>
       }
 
-      <Pressable
-    style={styles.commentButton}
-    onPress={() => props.navigation.navigate('Comentarios', { id: props.id })}>
-    <Text style={styles.buttonText}>Comentar</Text>
-    </Pressable>
+      <Pressable style={styles.commentButton} onPress={() => props.navigation.navigate('Comentarios', { id: props.id })}>
+        <Text style={styles.buttonText}>Comentar</Text>
+      </Pressable>
 
     </View>
   );

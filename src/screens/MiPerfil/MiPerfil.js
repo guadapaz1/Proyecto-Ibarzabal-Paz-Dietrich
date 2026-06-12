@@ -49,8 +49,8 @@ function MiPerfil(props) {
         <View style={styles.container}>
             <Text style={styles.title}>Mi Perfil</Text>
 
-            <Text style={styles.text}><text style={styles.negrita}>Usuario:</text> {username}</Text>
-            <Text style={styles.text}><text style={styles.negrita}>Email: </text>{auth.currentUser.email}</Text>
+            <Text style={styles.text}><Text style={styles.negrita}>Usuario: </Text> {username}</Text>
+            <Text style={styles.text}><Text style={styles.negrita}>Email: </Text>{auth.currentUser.email}</Text>
 
             <Pressable style={styles.button} onPress={() => logout()}>
                 <Text style={styles.buttonText}>Cerrar sesión</Text>
