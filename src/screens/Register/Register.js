@@ -21,7 +21,6 @@ function Register(props) {
             username: username,
             createdAt: Date.now()
         })
-            //sign out aca
             setRegister(true);
             props.navigation.navigate("Login");
          })
@@ -30,7 +29,6 @@ function Register(props) {
             setRegisterError("Fallo en el registro.")
         })
     }
-
 
     useEffect(
         ()=> {
@@ -44,8 +42,6 @@ function Register(props) {
         },  []
     )
   
-
-
     return (
 
         <View style={styles.container}>
@@ -58,40 +54,34 @@ function Register(props) {
                 keyboardType='email-address'
                 placeholder='email'
                 onChangeText={(text) => setEmail(text)}
-                value={email}
-            />
+                value={email}/>
 
             <TextInput style={styles.input}
                 keyboardType='default'
                 placeholder='username'
                 onChangeText={(text) => setUsername(text)}
-                value={username}
-            />
+                value={username}/>
 
             <TextInput style={styles.input}
                 keyboardType='default'
                 placeholder='password'
                 secureTextEntry={true}
                 onChangeText={(text) => setPassword(text)}
-                value={password}
-            />
+                value={password}/>
 
             <Pressable style={styles.button} onPress={() => registerOnSubmit(email, password,username)}>
                 <Text style={styles.buttonText}> Registrate </Text>
             </Pressable>
 
             <Pressable onPress={() => props.navigation.navigate("Login")}>
-    <Text style={styles.link}>¿Ya tenés cuenta? Iniciá sesión</Text>
-</Pressable>
+                <Text style={styles.link}>¿Ya tenés cuenta? Iniciá sesión</Text>
+            </Pressable>
 
             <View>
-
                 <Text>{registererror}</Text>
-
             </View>
 
         </View>
-
     )
 }
 
@@ -105,14 +95,12 @@ const styles = StyleSheet.create({
         paddingTop: 40,
         backgroundColor: '#F5F7FA'
     },
-
     title: {
         fontSize: 32,
         fontWeight: 'bold',
         marginBottom: 25,
         color: '#4F46E5'
     },
-
     input: {
         backgroundColor: 'white',
         paddingVertical: 15,

@@ -44,29 +44,25 @@ function Login(props) {
                 keyboardType='email-address'
                 placeholder='email'
                 onChangeText={(text) => setEmail(text)}
-                value={email}
-            />
+                value={email}/>
 
             <TextInput style={styles.input}
                 keyboardType='default'
                 placeholder='password'
                 secureTextEntry={true}
                 onChangeText={(text) => setPassword(text)}
-                value={password}
-            />
+                value={password}/>
 
             <Pressable style={styles.button} onPress={() => loginOnSubmit(email, password)}>
                 <Text style={styles.buttonText}> Login </Text>
             </Pressable>
 
             <Pressable onPress={() => props.navigation.navigate("Register")}>
-    <Text style={styles.link}>¿No tenés cuenta? Registrate</Text>
-</Pressable>
+                <Text style={styles.link}>¿No tenés cuenta? Registrate</Text>
+            </Pressable>
 
             <View>
-
                 <Text>{loginerror}</Text>
-
             </View>
 
         </View>
@@ -84,14 +80,12 @@ const styles = StyleSheet.create({
         paddingTop: 40,
         backgroundColor: '#F5F7FA'
     },
-
     title: {
         fontSize: 32,
         fontWeight: 'bold',
         marginBottom: 25,
         color: '#4F46E5'
     },
-
     input: {
         backgroundColor: 'white',
         paddingVertical: 15,

@@ -11,7 +11,7 @@ function Comentarios(props) {
     const [comentario, setComentario] = useState("");
 
     useEffect(() => {
-        db.collection('posts')
+        db.collection("posts")
             .doc(id)
             .onSnapshot(doc => {
                 setPost(doc.data());
@@ -57,8 +57,7 @@ function Comentarios(props) {
                 style={styles.input}
                 placeholder="Escribí un comentario"
                 value={comentario}
-                onChangeText={(text) => setComentario(text)}
-            />
+                onChangeText={(text) => setComentario(text)}/>
 
             <Pressable style={styles.button} onPress={agregarComentario} >
                 <Text style={styles.buttonText}> Enviar </Text>
@@ -73,7 +72,6 @@ function Comentarios(props) {
                     </View>
                 )}
             />
-
         </View>
     );
 }

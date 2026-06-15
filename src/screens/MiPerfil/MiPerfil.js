@@ -62,9 +62,8 @@ function MiPerfil(props) {
                 data={misPosts}
                 keyExtractor={item => item.id}
                 renderItem={({ item }) => (
-                    <Post data={item.data} id={item.id} />
-                )}
-            />
+                    <Post data={item.data} id={item.id} navigation={props.navigation} />
+                )}/>
         </View>
     );
 }
