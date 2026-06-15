@@ -7,9 +7,7 @@ function Home(props) {
      const [posts, setPosts] = useState([]);
      
     useEffect(() => {  
-        db.collection('posts')
-        .orderBy('createdAt', 'desc')
-        .onSnapshot(docs => {
+        db.collection('posts').orderBy('createdAt', 'desc').onSnapshot(docs => {
             let posts = [];
         docs.forEach(doc => {
             posts.push({
