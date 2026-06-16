@@ -39,7 +39,6 @@ function Login(props) {
         <View style={styles.container}>
 
             <Text style={styles.title}> Login </Text>
-
             <TextInput style={styles.input}
                 keyboardType='email-address'
                 placeholder='email'
@@ -66,7 +65,6 @@ function Login(props) {
             </View>
 
         </View>
-
     )
 }
 

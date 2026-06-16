@@ -6,7 +6,6 @@ import firebase from 'firebase';
 function Comentarios(props) {
 
     const { id } = props.route.params;
-
     const [post, setPost] = useState();
     const [comentario, setComentario] = useState("");
 

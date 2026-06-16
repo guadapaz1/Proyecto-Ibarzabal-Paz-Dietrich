@@ -6,11 +6,9 @@ import firebase from 'firebase';
 
 
 function Post(props) {
- 
+
   const usuarioActual = auth.currentUser.email
-
   const likes = props.data.likes ? props.data.likes : [];
-
   const [yaLikeo,setYaLikeo] = useState(false);
 
   useEffect(() => {

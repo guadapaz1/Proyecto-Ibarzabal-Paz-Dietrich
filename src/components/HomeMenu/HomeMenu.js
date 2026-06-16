@@ -18,7 +18,7 @@ function HomeMenu() {
                     tabBarIcon: () => (
                         <Ionicons name="home" size={24} color="#4F46E5" />
                     )
-                }}
+            }}
             />
     
             <Tab.Screen

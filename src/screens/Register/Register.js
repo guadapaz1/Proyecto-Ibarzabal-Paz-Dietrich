@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import {View, Text, TextInput, Pressable, StyleSheet} from 'react-native';
 import { auth, db} from '../../firebase/config';
 
-
 function Register(props) {
 
     const [email, setEmail] = useState('');
@@ -37,8 +36,7 @@ function Register(props) {
                     if (user) {
                         props.navigation.navigate("HomeMenu")
                     }
-                }
-            )
+                })
         },  []
     )
   
